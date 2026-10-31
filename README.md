@@ -72,7 +72,7 @@ $ chmod 755 mission.txt
 rwx 비트와 숫자 표기법:
 리눅스 권한은 읽기(4), 쓰기(2), 실행(1)의 합으로 계산합니다.
 755의 의미: 소유자는 7(4+2+1, 모든 권한), 그룹과 기타 사용자는 5(4+1, 읽기 및 실행 권한)를 가짐을 의미합니다. 
-
+ (이유: 소유자 외 타인이 내용을 수정하는 것은 방지하면서, 누구나 파일을 읽고 실행할 수 있도록 설정하기 위함입니다.)
 ```bash
 # 파일 권한 변경 전
 $ ls -l mission.txt
@@ -91,6 +91,7 @@ drwxr-xr-x 1 User 197121 0 Oct 31 10:45 test_dir
 
 # 디렉토리 권한 변경 실행 (소유자만 읽고 쓰기 가능)
 $ chmod 700 test_dir
+ (이유: 개인적인 작업 공간이므로 소유자 외의 다른 사용자가 접근하거나 내용을 확인하지 못하도록 보안을 강화하기 위함입니다.)
 
 # 디렉토리 권한 변경 후 (drwx------ 확인)
 $ ls -ld test_dir
@@ -118,16 +119,116 @@ Server: Docker Desktop 4.97.0 (244584)
   API version:      1.56 (minimum version 1.40)
   OS/Arch:          linux/amd64     
 ```
-**Docker 시스템 정보 확인 (docker info):**
+**Docker 시스템 상세 정보 (docker info):**
+Docker 데몬(엔진)의 실행 상태와 시스템 리소스 할당 현황을 확인하기 위해 docker info 전체 결과를 기록합니다.
 ```bash
 $ docker info
-# 전체 내용 중 상단 일부만 기록
-Kernel Version: 5.15.153.1-microsoft-standard-WSL2
-Operating System: Docker Desktop
-OSType: linux
-Architecture: x86_64
-CPUs: 12
-Total Memory: 7.633GiB
+
+Client:
+ Version:    29.9.2
+ Context:    desktop-linux
+ Debug Mode: false
+ Plugins:
+  agent: Docker AI Agent Runner (Docker Inc.)
+    Version:  v1.152.0
+    Path:     C:\Users\User\.docker\cli-plugins\docker-agent.exe
+  ai: Docker AI Agent - Ask Gordon (Docker Inc.)
+    Version:  v1.33.0
+    Path:     C:\Users\User\.docker\cli-plugins\docker-ai.exe
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.38.1
+    Path:     C:\Users\User\.docker\cli-plugins\docker-buildx.exe
+  compose: Docker Compose (Docker Inc.)
+    Version:  v5.6.1
+    Path:     C:\Users\User\.docker\cli-plugins\docker-compose.exe
+  debug: Get a shell into any image or container (Docker Inc.)
+    Version:  0.49.0
+    Path:     C:\Users\User\.docker\cli-plugins\docker-debug.exe
+  desktop: Docker Desktop commands (Docker Inc.)
+    Version:  4.97.0
+    Path:     C:\Users\User\.docker\cli-plugins\docker-desktop.exe
+  dhi: CLI for managing Docker Hardened Images (Docker Inc.)
+    Version:  v0.0.9
+    Path:     C:\Users\User\.docker\cli-plugins\docker-dhi.exe
+  extension: Manages Docker extensions (Docker Inc.)
+    Version:  v0.2.32
+    Path:     C:\Users\User\.docker\cli-plugins\docker-extension.exe
+  init: Creates Docker-related starter files for your project (Docker Inc.)
+    Version:  v1.4.1
+    Path:     C:\Users\User\.docker\cli-plugins\docker-init.exe
+  mcp: Docker MCP Plugin (Docker Inc.)
+    Version:  v0.44.2
+    Path:     C:\Users\User\.docker\cli-plugins\docker-mcp.exe
+  model: Docker Model Runner (Docker Inc.)
+    Version:  v1.2.9
+    Path:     C:\Users\User\.docker\cli-plugins\docker-model.exe
+  offload: Docker Offload (Docker Inc.)
+    Version:  v0.7.21
+    Path:     C:\Users\User\.docker\cli-plugins\docker-offload.exe
+  pass: Docker Pass Secrets Manager Plugin (beta) (Docker Inc.)
+    Version:  v0.3.2
+    Path:     C:\Users\User\.docker\cli-plugins\docker-pass.exe
+  sandbox: "docker sandbox" is deprecated, use Docker Sandboxes instead (Docker Inc.)
+    Version:  v0.13.0
+    Path:     C:\Users\User\.docker\cli-plugins\docker-sandbox.exe
+  scout: Docker Scout (Docker Inc.)
+    Version:  v1.27.0
+    Path:     C:\Users\User\.docker\cli-plugins\docker-scout.exe
+
+Server:
+ Containers: 6
+  Running: 2
+  Paused: 0
+  Stopped: 4
+ Images: 5
+ Server Version: 29.9.2
+ Storage Driver: overlayfs
+  driver-type: io.containerd.snapshotter.v1
+ Logging Driver: local
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+ CDI spec directories:
+  /etc/cdi
+  /var/run/cdi
+ Discovered Devices:
+  cdi: docker.com/gpu=webgpu
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 nvidia runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc version: v1.5.2-0-g29dd3dc2
+ init version: de40ad0
+ Security Options:
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 6.18.54.1-microsoft-standard-WSL2
+ Operating System: Docker Desktop
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 16
+ Total Memory: 7.619GiB
+ Name: docker-desktop
+ ID: 6a175294-4d78-4aa1-a879-2d767e0fe02c
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ HTTP Proxy: http.docker.internal:3128
+ HTTPS Proxy: http.docker.internal:3128
+ No Proxy: hubproxy.docker.internal
+ Labels:
+  com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+ Experimental: false
+ Insecure Registries:
+  hubproxy.docker.internal:5555
+  127.0.0.0/8
+  ::1/128
+ Live Restore Enabled: false
+ Firewall Backend: iptables
 ```
 터미널에서 `docker version` 명령어를 통해 클라이언트와 서버 엔진이 정상 작동함을 확인하였습니다.
 (중략: docker version 및 info 로그 내용)
@@ -152,6 +253,7 @@ nginx:latest           600f7cd45e27        243MB         66.8MB    U
 ```
 
 2 **컨테이너 목록 확인 (docker ps -a)**
+
 ```bash
 CONTAINER ID   IMAGE         COMMAND                   CREATED          STATUS                      PORTS                  NAMES
 0fe926a12ed0   hello-world   "/hello"                  10 minutes ago   Exited (0) 9 minutes ago                           jolly_wilson
@@ -160,13 +262,33 @@ feb2ffb8a849   hello-world   "/hello"                  13 minutes ago   Exited (
 ```
 
 3 **컨테이너 로그 확인 (docker logs 0fe9)**
-```bash
+
+`hello-world` 컨테이너의 실행 전체 로그(stdout)를 확인하여 정상 작동을 증빙합니다.
+
+```text
+$ docker logs 0fe9
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
 Share images, automate workflows, and more with a free Docker ID:
  https://hub.docker.com/
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
+
 ---
 
 4 **리소스 사용량 확인 (docker stats --no-stream)**
@@ -179,19 +301,43 @@ a6da93a2c848   recursing_black   0.00%     1.32MiB / 7.619GiB   0.02%     1.7kB 
 
 ## 7. 컨테이너 실행 실습
 
-### 7.1 hello-world & ubuntu
-- `hello-world` 실행 성공 확인
-- `ubuntu` 컨테이너 진입 및 명령 수행:
+### 7.1 hello-world & ubuntu 실행
+- **hello-world:** `docker run hello-world` 명령을 통해 도커 엔진 설치 및 동작을 확인하였습니다.
+- **ubuntu:** 대화형 모드(`-it`)로 컨테이너에 진입하여 리눅스 환경을 확인하였습니다.
 ```bash
 $ docker run -it ubuntu bash
-# 내부에서 ls, echo 수행 후 exit
+root@a6da93a2c848:/# ls
+bin  boot  dev  etc  home  lib  ...
+root@a6da93a2c848:/# echo "Hello from Ubuntu"
+Hello from Ubuntu
+root@a6da93a2c848:/# exit
+```
+### 7.2 컨테이너 및 이미지 정리
+실습 종료 후, 사용한 자원을 정리하기 위해 컨테이너와 이미지를 삭제하였습니다.
+
+1) 컨테이너 삭제 (docker rm)
+실행이 종료된 ubuntu 및 hello-world 컨테이너를 삭제하였습니다.
+```bash
+$ docker rm a6da93a2c848 0fe926a12ed0
+a6da93a2c848
+0fe926a12ed0
 ```
 
-### 7.2 attach vs exec 차이점 정리
+2) 이미지 삭제 (docker rmi)
+더 이상 사용하지 않는 이미지를 삭제하여 디스크 용량을 확보하였습니다.
+```bash
+$ docker rmi ubuntu hello-world
+Untagged: ubuntu:latest
+Deleted: sha256:ba6304546984...
+Untagged: hello-world:latest
+Deleted: sha256:c567b231f656...
+```
+
+### 7.3 attach vs exec 차이점 정리
 attach: 실행 중인 컨테이너의 표준 입력/출력에 연결합니다. 종료 시 컨테이너가 멈출 수 있습니다.
 exec: 실행 중인 컨테이너에 새로운 프로세스를 실행합니다. 테스트나 디버깅 시 안전하게 사용 가능합니다.
 
-### 7.3 나만의 웹 서버 빌드 및 실행 (추가)
+### 7.4 나만의 웹 서버 빌드 및 실행 (추가)
 Dockerfile 작성 및 이미지 빌드
 ```bash
 # Dockerfile을 이용해 my-web-server 이미지 생성
