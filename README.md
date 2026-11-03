@@ -1,5 +1,9 @@
 # 🚀 개발 워크스테이션 구축 미션 결과 보고서
 
+# 개발 워크스테이션 구축 미션 결과 보고서
+
+### 개발 워크스테이션 구축 미션 결과 보고서
+
 ## 1. 프로젝트 개요
 터미널 환경 설정, Docker 컨테이너 관리, Git/GitHub 버전 관리를 통해 재현 가능한 개발 환경을 구축하고 문서화하는 것을 목표로 합니다.
 
@@ -22,82 +26,275 @@ my-mission/
 - **Docker Version:** Docker version 29.9.2, build a82e528
 - **Git Version:** git version 2.56.0.windows.4
 
-## 4. 수행 항목 체크리스트
-- [x] 터미널 조작 및 권한 설정 실습
-- [x] Docker 설치 및 기본 점검 (version, info)
-- [x] Docker 기본 운영 명령 수행 (images, ps, logs, stats)
-- [x] 컨테이너 실행 실습 (hello-world, ubuntu)
-- [x] Dockerfile 기반 커스텀 이미지 제작 (Nginx)
-- [x] 포트 매핑 및 브라우저 접속 확인
-- [x] Docker 볼륨을 이용한 데이터 영속성 검증
-- [x] Git 사용자 설정 및 GitHub 저장소 연동
+
+## 2. 프로젝트 구조 (Directory Tree)
+```bash
+my-mission/
+├── Dockerfile          # Docker 이미지를 빌드하기 위한 설계도
+├── index.html          # Nginx 웹 서버에서 보여줄 메인 페이지
+├── README.md           # 프로젝트 실습 과정 및 개념 정리 보고서
+├── web_result.png      # 웹 서버 접속 성공 화면 캡처
+├── git_result.png      # Git 실습 결과 캡처
+└── vol_result.png      # 볼륨 마운트 확인 결과 캡처
+```
+구성 기준: 프로젝트 루트(my-mission)를 중심으로 실행 파일(Dockerfile, HTML)과 증빙 자료(이미지)를 배치하여 관리 효율성을 높였습니다.
+
+
+## 3. 실행 환경
+- **OS:** Windows 11 
+- **Shell/Terminal:** Git Bash
+- **Docker Version:** Docker version 29.9.2, build a82e528
+- **Git Version:** git version 2.56.0.windows.4
 
 ---
 
-## 5. 터미널 조작 및 권한 실습 로그
+---
 
-### 5.1 기본 명령어 수행
-```bash
+## 4. 🖥️ 터미널 사용법 익히기
 
-# 현재 위치 확인
+Docker 를 사용하려면 터미널 명령어가 필수!  
+`my-mission` 폴더를 만들고 기본 명령어들을 직접 실습했습니다.
+
+### 📍 4-1. 실습 순서
+
+#### 1️⃣ 현재 위치 확인 (`pwd`)
+
+\```bash
 $ pwd
-/c/Users/User/my-mission
+/c/Users/User/Desktop
+\```
 
-# 목록 확인 (숨김 파일 포함)
-$ ls -al
-total 4
-drwxr-xr-x 1 User 197121 0 Oct 31 10:45 .
-drwxr-xr-x 1 User 197121 0 Oct 31 10:40 ..
--rw-r--r-- 1 User 197121 50 Oct 31 10:42 README.md
+→ 현재 바탕화면에 있음을 확인! 📍
 
-# 디렉토리 생성 및 이동
-$ mkdir test_dir
-$ cd test_dir
-
-# 빈 파일 생성 및 내용 확인
-$ echo "Hello Terminal" > mission.txt
-$ cat mission.txt
-Hello Terminal
-
-# 복사, 이름 변경, 삭제
-$ cp mission.txt mission_copy.txt
-$ mv mission_copy.txt renamed_mission.txt
-$ rm renamed_mission.txt
-```
-
-### 5.2 권한 실습 (chmod) 및 숫자 표기법 설명
-```bash
-$ chmod 755 mission.txt
-```
-rwx 비트와 숫자 표기법:
-리눅스 권한은 읽기(4), 쓰기(2), 실행(1)의 합으로 계산합니다.
-755의 의미: 소유자는 7(4+2+1, 모든 권한), 그룹과 기타 사용자는 5(4+1, 읽기 및 실행 권한)를 가짐을 의미합니다. 
- (이유: 소유자 외 타인이 내용을 수정하는 것은 방지하면서, 누구나 파일을 읽고 실행할 수 있도록 설정하기 위함입니다.)
-```bash
-# 파일 권한 변경 전
-$ ls -l mission.txt
--rw-r--r-- 1 User 197121 15 Oct 31 10:46 mission.txt
-
-# 권한 변경 실행
-$ chmod 755 mission.txt
-
-# 파일 권한 변경 후 (x가 추가된 것을 확인)
-$ ls -l mission.txt
--rwxr-xr-x 1 User 197121 15 Oct 31 10:46 mission.txt
-
-# 디렉토리 권한 변경 전
-$ ls -ld test_dir
-drwxr-xr-x 1 User 197121 0 Oct 31 10:45 test_dir
-
-# 디렉토리 권한 변경 실행 (소유자만 읽고 쓰기 가능)
-$ chmod 700 test_dir
- (이유: 개인적인 작업 공간이므로 소유자 외의 다른 사용자가 접근하거나 내용을 확인하지 못하도록 보안을 강화하기 위함입니다.)
-
-# 디렉토리 권한 변경 후 (drwx------ 확인)
-$ ls -ld test_dir
-drwx------ 1 User 197121 0 Oct 31 10:45 test_dir
-```
 ---
+
+#### 2️⃣ 파일 목록 보기 (`ls`)
+
+\```bash
+$ ls
+'Docker Desktop.lnk'*  'Visual Studio Code.lnk'*   desktop.ini
+\```
+
+→ 바탕화면의 바로가기들 확인! 👀
+
+---
+
+#### 3️⃣ 실습 폴더 만들기 (`mkdir`)
+
+\```bash
+$ mkdir my-mission
+$ ls
+'Docker Desktop.lnk'*  'Visual Studio Code.lnk'*   desktop.ini   my-mission/
+\```
+
+→ `my-mission` 폴더 생성 완료! 📁
+
+---
+
+#### 4️⃣ 폴더 이동 (`cd`)
+
+\```bash
+$ cd my-mission
+$ pwd
+/c/Users/User/Desktop/my-mission
+\```
+
+→ 방금 만든 폴더 안으로 입장! 🚪
+
+---
+
+#### 5️⃣ 빈 파일 만들기 (`touch`)
+
+\```bash
+$ touch test.txt
+$ ls
+test.txt
+\```
+
+→ 빈 텍스트 파일 생성! 📄
+
+---
+
+#### 6️⃣ 파일에 내용 쓰기 (`echo >`)
+
+\```bash
+$ echo "hello Doker!" > test.txt
+\```
+
+→ `>` 로 파일에 내용 저장! ✍️
+
+---
+
+#### 7️⃣ 파일 내용 확인 (`cat`)
+
+\```bash
+$ cat test.txt
+hello Doker!
+\```
+
+→ 저장한 내용 확인! 👁️
+
+---
+
+#### 8️⃣ 자세히 보기 (`ls -l`)
+
+\```bash
+$ ls -l
+total 1
+-rw-r--r-- 1 User 197121 13 Nov  3 15:35 test.txt
+\```
+
+→ 권한, 크기, 날짜까지 모두 확인! 🔍
+
+---
+
+### 📊 4-2. 사용한 명령어 정리
+
+| 명령어 | 설명 | 내가 쓴 예시 |
+|---|---|---|
+| `pwd` | 현재 위치 확인 | `$ pwd` |
+| `ls` | 파일 목록 보기 | `$ ls` |
+| `mkdir` | 폴더 만들기 | `$ mkdir my-mission` |
+| `cd` | 폴더 이동 | `$ cd my-mission` |
+| `touch` | 빈 파일 만들기 | `$ touch test.txt` |
+| `echo >` | 파일에 내용 저장 | `$ echo "hello Doker!" > test.txt` |
+| `cat` | 파일 내용 보기 | `$ cat test.txt` |
+| `ls -l` | 자세히 보기 (권한까지!) | `$ ls -l` |
+
+---
+
+### 📸 4-3. 터미널 실습 캡쳐
+
+![터미널실습](./[터미널실습]-imgterminal.png)
+
+> 💡 `my-mission` 폴더를 만들고, 파일 생성부터 권한 확인까지  
+> 전체 흐름을 한 번에 실습했습니다!
+
+---
+
+### 💡 4-4. 실습 중 배운 점
+
+#### 🚨 **에러도 경험!**
+
+\```bash
+$ la -l
+bash: la: command not found
+\```
+
+→ 오타(`la`)를 쳤더니 "명령어를 못 찾겠다!" 에러 발생!  
+→ 올바른 명령어는 `ls -l` ✅  
+→ **터미널은 오타에 엄격하다!** 는 것을 배움! 😅
+
+---
+
+### 🔒 4-5. 파일 권한 이해
+
+`ls -l` 로 본 `-rw-r--r--` 가 뭘까? 🤔
+
+#### 📊 권한 10칸 구조!
+
+\```
+-rw-r--r--
+│└┬┘└┬┘└┬┘
+│ │  │  └── Others (다른 사람)
+│ │  └───── Group (그룹)
+│ └──────── User (소유자)
+└────────── 파일 종류 (- 파일, d 폴더)
+\```
+
+#### 🔤 권한 글자!
+
+| 글자 | 의미 | 숫자 |
+|---|---|---|
+| `r` | 읽기 (read) | 4 |
+| `w` | 쓰기 (write) | 2 |
+| `x` | 실행 (execute) | 1 |
+
+#### 🔢 자주 쓰는 조합!
+
+| 숫자 | 권한 | 용도 |
+|---|---|---|
+| **644** | `rw-r--r--` | 📄 일반 파일 기본값 |
+| **755** | `rwxr-xr-x` | 📁 폴더, 실행 파일 |
+| **777** | `rwxrwxrwx` | ⚠️ 모든 권한 (위험!) |
+| **600** | `rw-------` | 🔐 내 것만 (비밀번호 등) |
+
+**🔍 내가 만든 `test.txt` 는?**
+
+→ `-rw-r--r--` = **644** = 나는 읽고 쓰기 가능, 남들은 읽기만 가능! 📖
+→ `-rwx------` = **700** = 진짜 나만 다 할 수 있어! (비밀 문서) 🔐
+
+---
+
+### 🔧 4-6. 권한 변경 실습
+
+![권한 변경 실습 결과](./권한변경 실습.png)
+
+- **실습 내용**: `test.txt` 파일을 생성하고 `chmod 700` 명령어를 통해 소유자에게만 모든 권한을 부여함.
+- **결과**: `-rw-r--r--` (644)에서 `-rwx------` (700)으로 변경 성공!
+
+
+
+## 5. 🐳 Docker 실습 (1): 볼륨 마운트 (Volume Mount)
+내 컴퓨터의 폴더와 컨테이너 내부를 연결해서, 파일을 수정하면 웹사이트에 즉시 반영되도록 설정했습니다.
+
+####📍 5-1. 실습 과정
+my-site 폴더 생성 및 index.html 작성
+docker run 명령어로 Nginx 컨테이너 실행 (볼륨 연결 포함)
+🚨 트러블슈팅: Windows 경로 오류 해결
+Windows Git Bash에서 볼륨 마운트(-v)를 사용할 때 경로 인식 문제로 에러가 발생했습니다.
+
+해결 방법: 명령어 앞에 MSYS_NO_PATHCONV=1 환경 변수를 추가하여 해결!
+```bash
+$ MSYS_NO_PATHCONV=1 docker run -d -p 8080:80
+-v "$(pwd):/usr/share/nginx/html:ro"
+--name my-web nginx
+```
+
+![docker 실행 터미널](./images/docker 실행 터미널.png)
+
+
+✅ 결과 확인
+브라우저에서 localhost:8080 접속 시 "Hello Doker! My name is Jenny." 문구 확인 성공! 🥳
+
+![docker 성공](./images/docker 성공.png)
+
+
+## 6. 🏗️ Docker 실습 (2): Dockerfile 빌드 (Build)
+설계도(Dockerfile)를 직접 작성하여 나만의 웹 서버 이미지를 만들었습니다.
+
+####📍 6-1. Dockerfile 내용
+```dockerfile
+FROM nginx:latest
+COPY index.html /usr/share/nginx/html/index.html
+```
+
+🚨 트러블슈팅: 빌드 에러 (not found)
+처음 빌드 시 index.html 파일이 없어 에러가 발생했습니다.
+
+원인: 설계도에는 파일을 복사하라고 적었지만, 실제 재료(파일)가 폴더에 없었음.
+해결: echo 명령어로 index.html을 생성한 후 다시 빌드!
+
+####📍 6-2. 이미지 빌드 및 실행
+```bash
+
+1. 이미지 빌드 (이름: jenny-web)
+$ docker build -t jenny-web .
+
+2. 컨테이너 실행 (9000번 포트 사용)
+$ docker run -d -p 9000:80 --name jenny-site-final jenny-web
+```
+
+![Dockerfile 명령](./images/Dockerfile 명령.png)
+
+✅ 결과 확인
+브라우저에서 localhost:9000 접속 시 빌드된 웹사이트 확인 성공! 🚀
+
+![Dockerfie 성공2](./images/Dockerfie 성공2.png)
+
+
+
+
 
 ## 6. Docker 실습 결과
 
