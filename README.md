@@ -77,10 +77,7 @@ bash: la: command not found
 
 #### 📊 권한 10칸 구조!
 
-\```
 -rw-r--r--  파일 종류 (- 파일, d 폴더) Others (다른 사람) User (소유자) Group (그룹)
-
-\```
 
 #### 🔤 권한 글자!
 
