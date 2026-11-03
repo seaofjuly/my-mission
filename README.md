@@ -174,6 +174,7 @@ $ docker run -d -p 9000:80 --name jenny-site-final jenny-web
 
 
 
+
 ## 6. Docker 실습 결과
 
 ### 6.1 Docker 설치 및 실행 확인
