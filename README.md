@@ -1,31 +1,7 @@
 # 🚀 개발 워크스테이션 구축 미션 결과 보고서
 
-# 개발 워크스테이션 구축 미션 결과 보고서
-
-### 개발 워크스테이션 구축 미션 결과 보고서
-
 ## 1. 프로젝트 개요
 터미널 환경 설정, Docker 컨테이너 관리, Git/GitHub 버전 관리를 통해 재현 가능한 개발 환경을 구축하고 문서화하는 것을 목표로 합니다.
-
-## 2. 프로젝트 구조 (Directory Tree)
-```bash
-my-mission/
-├── Dockerfile          # Docker 이미지를 빌드하기 위한 설계도
-├── index.html          # Nginx 웹 서버에서 보여줄 메인 페이지
-├── README.md           # 프로젝트 실습 과정 및 개념 정리 보고서
-├── web_result.png      # 웹 서버 접속 성공 화면 캡처
-├── git_result.png      # Git 실습 결과 캡처
-└── vol_result.png      # 볼륨 마운트 확인 결과 캡처
-```
-구성 기준: 프로젝트 루트(my-mission)를 중심으로 실행 파일(Dockerfile, HTML)과 증빙 자료(이미지)를 배치하여 관리 효율성을 높였습니다.
-
-
-## 3. 실행 환경
-- **OS:** Windows 11 
-- **Shell/Terminal:** Git Bash
-- **Docker Version:** Docker version 29.9.2, build a82e528
-- **Git Version:** git version 2.56.0.windows.4
-
 
 ## 2. 프로젝트 구조 (Directory Tree)
 ```bash
