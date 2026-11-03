@@ -31,100 +31,8 @@ my-mission/
 Docker 를 사용하려면 터미널 명령어가 필수!  
 `my-mission` 폴더를 만들고 기본 명령어들을 직접 실습했습니다.
 
-### 📍 4-1. 실습 순서
 
-#### 1️⃣ 현재 위치 확인 (`pwd`)
-
-\```bash
-$ pwd
-/c/Users/User/Desktop
-\```
-
-→ 현재 바탕화면에 있음을 확인! 📍
-
----
-
-#### 2️⃣ 파일 목록 보기 (`ls`)
-
-\```bash
-$ ls
-'Docker Desktop.lnk'*  'Visual Studio Code.lnk'*   desktop.ini
-\```
-
-→ 바탕화면의 바로가기들 확인! 👀
-
----
-
-#### 3️⃣ 실습 폴더 만들기 (`mkdir`)
-
-\```bash
-$ mkdir my-mission
-$ ls
-'Docker Desktop.lnk'*  'Visual Studio Code.lnk'*   desktop.ini   my-mission/
-\```
-
-→ `my-mission` 폴더 생성 완료! 📁
-
----
-
-#### 4️⃣ 폴더 이동 (`cd`)
-
-\```bash
-$ cd my-mission
-$ pwd
-/c/Users/User/Desktop/my-mission
-\```
-
-→ 방금 만든 폴더 안으로 입장! 🚪
-
----
-
-#### 5️⃣ 빈 파일 만들기 (`touch`)
-
-\```bash
-$ touch test.txt
-$ ls
-test.txt
-\```
-
-→ 빈 텍스트 파일 생성! 📄
-
----
-
-#### 6️⃣ 파일에 내용 쓰기 (`echo >`)
-
-\```bash
-$ echo "hello Doker!" > test.txt
-\```
-
-→ `>` 로 파일에 내용 저장! ✍️
-
----
-
-#### 7️⃣ 파일 내용 확인 (`cat`)
-
-\```bash
-$ cat test.txt
-hello Doker!
-\```
-
-→ 저장한 내용 확인! 👁️
-
----
-
-#### 8️⃣ 자세히 보기 (`ls -l`)
-
-\```bash
-$ ls -l
-total 1
--rw-r--r-- 1 User 197121 13 Nov  3 15:35 test.txt
-\```
-
-→ 권한, 크기, 날짜까지 모두 확인! 🔍
-
----
-
-### 📊 4-2. 사용한 명령어 정리
+### 📊 4-1. 실습 순서 및 사용한 명령어 정리
 
 | 명령어 | 설명 | 내가 쓴 예시 |
 |---|---|---|
@@ -139,7 +47,7 @@ total 1
 
 ---
 
-### 📸 4-3. 터미널 실습 캡쳐
+### 📸 4-2. 터미널 실습 캡쳐
 
 ![터미널실습](./[터미널실습]-imgterminal.png)
 
@@ -148,7 +56,7 @@ total 1
 
 ---
 
-### 💡 4-4. 실습 중 배운 점
+### 💡 4-3. 실습 중 배운 점
 
 #### 🚨 **에러도 경험!**
 
@@ -163,7 +71,7 @@ bash: la: command not found
 
 ---
 
-### 🔒 4-5. 파일 권한 이해
+### 🔒 4-4. 파일 권한 이해
 
 `ls -l` 로 본 `-rw-r--r--` 가 뭘까? 🤔
 
@@ -202,7 +110,7 @@ bash: la: command not found
 
 ---
 
-### 🔧 4-6. 권한 변경 실습
+### 🔧 4-5. 권한 변경 실습
 
 ![권한 변경 실습 결과](./권한변경 실습.png)
 
@@ -212,9 +120,10 @@ bash: la: command not found
 
 
 ## 5. 🐳 Docker 실습 (1): 볼륨 마운트 (Volume Mount)
+
 내 컴퓨터의 폴더와 컨테이너 내부를 연결해서, 파일을 수정하면 웹사이트에 즉시 반영되도록 설정했습니다.
 
-####📍 5-1. 실습 과정
+###📍 5-1. 실습 과정
 my-site 폴더 생성 및 index.html 작성
 docker run 명령어로 Nginx 컨테이너 실행 (볼륨 연결 포함)
 🚨 트러블슈팅: Windows 경로 오류 해결
