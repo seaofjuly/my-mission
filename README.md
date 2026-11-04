@@ -111,66 +111,83 @@ bash: la: command not found
 - **결과**: `-rw-r--r--` (644)에서 `-rwx------` (700)으로 변경 성공!
 
 
+보내주신 스크린샷의 **실제 데이터(이미지 이름, 컨테이너 이름, 포트 번호, 실행 시간 등)**를 바탕으로 완벽한 `README.md` 내용을 작성해 드립니다. 
 
-## 5. 🐳 Docker 실습 (1): 볼륨 마운트 (Volume Mount)
+이 내용을 복사해서 메모장에 붙여넣고 `README.md`로 저장하시면 됩니다!
 
-내 컴퓨터의 폴더와 컨테이너 내부를 연결해서, 파일을 수정하면 웹사이트에 즉시 반영되도록 설정했습니다.
+---
 
-###📍 5-1. 실습 과정
-my-site 폴더 생성 및 index.html 작성
-docker run 명령어로 Nginx 컨테이너 실행 (볼륨 연결 포함)
-🚨 트러블슈팅: Windows 경로 오류 해결
-Windows Git Bash에서 볼륨 마운트(-v)를 사용할 때 경로 인식 문제로 에러가 발생했습니다.
+# 5. 🐳 Docker 웹 서버 구축 및 운영 보고서
 
-해결 방법: 명령어 앞에 MSYS_NO_PATHCONV=1 환경 변수를 추가하여 해결!
+## 5-1. 프로젝트 개요
+Docker를 사용하여 나만의 커스텀 웹 서버 이미지를 빌드하고, 컨테이너를 생성하여 실제 웹 서비스를 구동하는 과정을 실습하였습니다.
+
+## 5-2. 실습 환경
+*   **OS**: Windows (UCRT64 Terminal)
+*   **작업 경로**: `~/Desktop` (바탕화면)
+*   **Docker Version**: 20.10.x (최신 엔진 확인)
+
+## 5-3. 주요 단계 및 명령어
+
+### ① 환경 점검 및 테스트
+도커 엔진의 정상 작동을 확인하기 위해 기본 이미지를 실행하였습니다.
 ```bash
-$ MSYS_NO_PATHCONV=1 docker run -d -p 8080:80
--v "$(pwd):/usr/share/nginx/html:ro"
---name my-web nginx
+docker run hello-world
 ```
+*   **결과**: `hello-world` 이미지가 성공적으로 실행되어 도커 엔진의 정상 작동을 확인하였습니다.
 
-![docker 실행 터미널](./images/docker 실행 터미널.png)
-
-
-✅ 결과 확인
-브라우저에서 localhost:8080 접속 시 "Hello Doker! My name is Jenny." 문구 확인 성공! 🥳
-
-![docker 성공](./images/docker 성공.png)
-
-
-## 6. 🏗️ Docker 실습 (2): Dockerfile 빌드 (Build)
-설계도(Dockerfile)를 직접 작성하여 나만의 웹 서버 이미지를 만들었습니다.
-
-####📍 6-1. Dockerfile 내용
-```dockerfile
-FROM nginx:latest
-COPY index.html /usr/share/nginx/html/index.html
-```
-
-🚨 트러블슈팅: 빌드 에러 (not found)
-처음 빌드 시 index.html 파일이 없어 에러가 발생했습니다.
-
-원인: 설계도에는 파일을 복사하라고 적었지만, 실제 재료(파일)가 폴더에 없었음.
-해결: echo 명령어로 index.html을 생성한 후 다시 빌드!
-
-####📍 6-2. 이미지 빌드 및 실행
+### ② 커스텀 웹 서버 이미지 빌드 (Build)
+바탕화면에 작성된 `Dockerfile`과 `index.html`을 바탕으로 나만의 웹 서버 이미지를 생성하였습니다.
 ```bash
+docker build -t jenny-web .
+```
+*   **이미지 확인**: `docker images` 명령어를 통해 `jenny-web` 이미지가 생성된 것을 확인하였습니다. (용량: 241MB)
 
-1. 이미지 빌드 (이름: jenny-web)
-$ docker build -t jenny-web .
+### ③ 컨테이너 생성 및 실행 (Run)
+생성된 이미지를 바탕으로 포트 포워딩 설정을 포함한 컨테이너를 가동하였습니다.
+```bash
+docker run -d -p 9000:80 --name jenny-site-final jenny-web
+```
+*   **옵션 설명**:
+    *   `-d`: 백그라운드 실행 (데몬 모드)
+    *   `-p 9000:80`: 호스트의 9000번 포트와 컨테이너의 80번 포트 연결
+    *   `--name jenny-site-final`: 컨테이너 식별을 위한 고유 이름 설정
 
-2. 컨테이너 실행 (9000번 포트 사용)
-$ docker run -d -p 9000:80 --name jenny-site-final jenny-web
+### ④ 데이터 동기화 및 영속성 구현 (Storage)
+컨테이너의 일회성 한계를 극복하기 위해 두 가지 저장 방식을 실습하였습니다.
+
+Bind Mount (실시간 동기화): 호스트의 폴더를 직접 연결
+```bash
+docker run -d -p 9001:80 -v /c/Users/사용자/Desktop/html:/usr/share/nginx/html nginx
+```
+Docker Volume (데이터 보존): 도커 관리 영역에 안전한 금고 생성
+```bash
+docker volume create jenny-storage
+docker run -d -p 9002:80 -v jenny-storage:/usr/share/nginx/html --name jenny-web-vol nginx
 ```
 
-![Dockerfile 명령](./images/Dockerfile 명령.png)
+## 5-4. 최종 결과 및 검증
 
-✅ 결과 확인
-브라우저에서 localhost:9000 접속 시 빌드된 웹사이트 확인 성공! 🚀
+### ① 컨테이너 상태 확인
+`docker ps -a` 명령어를 통해 현재 실행 중인 컨테이너의 상태를 확인하였습니다.
+*   **컨테이너명**: `jenny-site-final`
+*   **상태**: `Up 19 hours` (19시간 이상 안정적으로 구동 중)
+*   **포트**: `0.0.0.0:9000->80/tcp`
 
-![Dockerfie 성공2](./images/Dockerfie 성공2.png)
+### ② 서비스 정상 작동 검증
+`curl` 명령어를 사용하여 로컬 호스트의 9000번 포트로 HTTP 요청을 보냈습니다.
+```bash
+curl -I localhost:9000  # 커스텀 이미지 확인
+curl -I localhost:9002  # 볼륨 적용 서버 확인
+```
 
+*   **응답 결과**: `HTTP/1.1 200 OK` 확인
+*   **서버 정보**: `nginx/1.31.8` (이미지 기반 엔진 정상 작동)
+*   http://localhost:9001/
+*   http://localhost:9002/hello.txt
 
+### ③ 데이터 영속성 테스트 완료
+컨테이너를 삭제(docker rm -f)한 후, 동일한 볼륨을 연결하여 재실행했을 때 기존 데이터가 그대로 유지됨을 확인하였습니다.
 
 
 
