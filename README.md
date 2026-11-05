@@ -412,13 +412,22 @@ a6da93a2c848   recursing_black   0.00%     1.32MiB / 7.619GiB   0.02%     1.7kB 
 - **ubuntu:** 대화형 모드(`-it`)로 컨테이너에 진입하여 리눅스 환경을 확인하였습니다.
 ```bash
 $ docker run -it ubuntu bash
-root@a6da93a2c848:/# ls
-bin  boot  dev  etc  home  lib  ...
-root@a6da93a2c848:/# echo "Hello from Ubuntu"
-Hello from Ubuntu
-root@a6da93a2c848:/# exit
+root@060a03ce5734:/# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+root@060a03ce5734:/# pwd
+/
+root@060a03ce5734:/# whoami
+root
+root@060a03ce5734:/# cat /etc/issue
+Ubuntu 26.04.1 LTS \n \l
+
+root@060a03ce5734:/# exit
+exit
 ```
-![권한변경 실습](./권한변경_실습.png)
+
+<img width="1092" height="460" alt="ubuntu bash 명령어" src="https://github.com/user-attachments/assets/bdd8d246-0720-4051-88ae-ac4cfdf21589" />
+
 
 ### 7.2 컨테이너 및 이미지 정리
 실습 종료 후, 사용한 자원을 정리하기 위해 컨테이너와 이미지를 삭제하였습니다.
@@ -498,8 +507,10 @@ $ docker run -d -p 8080:80 --name my-container my-web-server
 - **접속 주소:**  localhost:8080
 - **접속 증거:**  브라우저 localhost:8080 접속 시 커스텀 메시지 확인 완료.
 
-[결과 화면 스크린샷]
-![웹 서버 접속 결과](web_result.png)
+[결과 화면 스크린샷]<img width="530" height="435" alt="docker index" src="https://github.com/user-attachments/assets/5425a25c-d18e-479c-8c08-b0a51dca9fdf" />
+
+![웹 서버 접속 결과]<img width="762" height="446" alt="docker index 이미지" src="https://github.com/user-attachments/assets/8a73bc01-fac4-4bb1-865e-1b0a91d75686" />
+
 
 ---
 
