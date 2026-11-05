@@ -132,9 +132,12 @@ Docker를 사용하여 나만의 커스텀 웹 서버 이미지를 빌드하고,
 ### ① 환경 점검 및 테스트
 도커 엔진의 정상 작동을 확인하기 위해 기본 이미지를 실행하였습니다.
 ```bash
-docker run hello-world
+docker run hello from docker
 ```
-*   **결과**: `hello-world` 이미지가 성공적으로 실행되어 도커 엔진의 정상 작동을 확인하였습니다.
+*   **결과**: `hello from docker` 이미지가 성공적으로 실행되어 도커 엔진의 정상 작동을 확인하였습니다.
+
+  <img width="522" height="637" alt="hello from docker" src="https://github.com/user-attachments/assets/3a54383c-974e-4dcf-8756-6c31eb85a30d" />
+
 
 ### ② 커스텀 웹 서버 이미지 빌드 (Build)
 바탕화면에 작성된 `Dockerfile`과 `index.html`을 바탕으로 나만의 웹 서버 이미지를 생성하였습니다.
