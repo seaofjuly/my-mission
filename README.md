@@ -117,6 +117,31 @@ bash: la: command not found
 
 ---
 
+# 🐳 Docker 실습 및 웹 서버 구축 보고서
+
+## 1. 실습 환경
+* **OS**: Windows (UCRT64 Terminal / WSL2)
+* **작업 경로**: `~/Desktop` (바탕화면)
+* **Docker Version**: 29.9.2 (Docker Desktop)
+
+---
+
+## 2. Docker 기초 및 상태 점검
+터미널에서 `docker version` 및 `docker info` 명령어를 통해 클라이언트와 서버 엔진이 정상 작동함을 확인하였습니다.
+
+```bash
+$docker version$ docker info
+<img width="427" height="1032" alt="docker info" src="https://github.com/user-attachments/assets/f63e665e-16b0-4558-b03a-40a587233c2d" />
+
+
+
+
+
+
+
+
+
+
 # 5. 🐳 Docker 웹 서버 구축 및 운영 보고서
 
 ## 5-1. 프로젝트 개요
@@ -145,6 +170,8 @@ docker run hello from docker
 docker build -t jenny-web .
 ```
 *   **이미지 확인**: `docker images` 명령어를 통해 `jenny-web` 이미지가 생성된 것을 확인하였습니다. (용량: 241MB)
+
+  
 
 ### ③ 컨테이너 생성 및 실행 (Run)
 생성된 이미지를 바탕으로 포트 포워딩 설정을 포함한 컨테이너를 가동하였습니다.
