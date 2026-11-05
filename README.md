@@ -212,11 +212,17 @@ Server: Docker Desktop 4.97.0 (244584)
   API version:      1.56 (minimum version 1.40)
   OS/Arch:          linux/amd64     
 ```
+
+![doker실행](./doker실행.png)
+
 **Docker 시스템 상세 정보 (docker info):**
 Docker 데몬(엔진)의 실행 상태와 시스템 리소스 할당 현황을 확인하기 위해 docker info 전체 결과를 기록합니다.
 ```bash
-$ docker info
+docker info
 
+
+User@5F-121 UCRT64 ~/Desktop
+$ docker info
 Client:
  Version:    29.9.2
  Context:    desktop-linux
@@ -224,56 +230,56 @@ Client:
  Plugins:
   agent: Docker AI Agent Runner (Docker Inc.)
     Version:  v1.152.0
-    Path:     C:\Users\User\.docker\cli-plugins\docker-agent.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-agent.exe
   ai: Docker AI Agent - Ask Gordon (Docker Inc.)
     Version:  v1.33.0
-    Path:     C:\Users\User\.docker\cli-plugins\docker-ai.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-ai.exe
   buildx: Docker Buildx (Docker Inc.)
     Version:  v0.38.1
-    Path:     C:\Users\User\.docker\cli-plugins\docker-buildx.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-buildx.exe
   compose: Docker Compose (Docker Inc.)
     Version:  v5.6.1
-    Path:     C:\Users\User\.docker\cli-plugins\docker-compose.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-compose.exe
   debug: Get a shell into any image or container (Docker Inc.)
     Version:  0.49.0
-    Path:     C:\Users\User\.docker\cli-plugins\docker-debug.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-debug.exe
   desktop: Docker Desktop commands (Docker Inc.)
     Version:  4.97.0
-    Path:     C:\Users\User\.docker\cli-plugins\docker-desktop.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-desktop.exe
   dhi: CLI for managing Docker Hardened Images (Docker Inc.)
     Version:  v0.0.9
-    Path:     C:\Users\User\.docker\cli-plugins\docker-dhi.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-dhi.exe
   extension: Manages Docker extensions (Docker Inc.)
     Version:  v0.2.32
-    Path:     C:\Users\User\.docker\cli-plugins\docker-extension.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-extension.exe
   init: Creates Docker-related starter files for your project (Docker Inc.)
     Version:  v1.4.1
-    Path:     C:\Users\User\.docker\cli-plugins\docker-init.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-init.exe
   mcp: Docker MCP Plugin (Docker Inc.)
     Version:  v0.44.2
-    Path:     C:\Users\User\.docker\cli-plugins\docker-mcp.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-mcp.exe
   model: Docker Model Runner (Docker Inc.)
     Version:  v1.2.9
-    Path:     C:\Users\User\.docker\cli-plugins\docker-model.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-model.exe
   offload: Docker Offload (Docker Inc.)
     Version:  v0.7.21
-    Path:     C:\Users\User\.docker\cli-plugins\docker-offload.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-offload.exe
   pass: Docker Pass Secrets Manager Plugin (beta) (Docker Inc.)
     Version:  v0.3.2
-    Path:     C:\Users\User\.docker\cli-plugins\docker-pass.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-pass.exe
   sandbox: "docker sandbox" is deprecated, use Docker Sandboxes instead (Docker Inc.)
     Version:  v0.13.0
-    Path:     C:\Users\User\.docker\cli-plugins\docker-sandbox.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-sandbox.exe
   scout: Docker Scout (Docker Inc.)
     Version:  v1.27.0
-    Path:     C:\Users\User\.docker\cli-plugins\docker-scout.exe
+    Path:     C:\Program Files\Docker\cli-plugins\docker-scout.exe
 
 Server:
- Containers: 6
-  Running: 2
+ Containers: 1
+  Running: 1
   Paused: 0
-  Stopped: 4
- Images: 5
+  Stopped: 0
+ Images: 3
  Server Version: 29.9.2
  Storage Driver: overlayfs
   driver-type: io.containerd.snapshotter.v1
@@ -307,7 +313,7 @@ Server:
  CPUs: 16
  Total Memory: 7.619GiB
  Name: docker-desktop
- ID: 6a175294-4d78-4aa1-a879-2d767e0fe02c
+ ID: 3d456e6e-1d78-4e12-bc01-967d8bc6f72b
  Docker Root Dir: /var/lib/docker
  Debug Mode: false
  HTTP Proxy: http.docker.internal:3128
@@ -323,6 +329,8 @@ Server:
  Live Restore Enabled: false
  Firewall Backend: iptables
 ```
+![docker info](./docker info.png)
+
 터미널에서 `docker version` 명령어를 통해 클라이언트와 서버 엔진이 정상 작동함을 확인하였습니다.
 (중략: docker version 및 info 로그 내용)
 
@@ -344,6 +352,7 @@ hello-world:latest     c567b231f656       25.9kB         9.49kB    U
 my-web-server:latest   da33294fd7a8        241MB         63.9MB        
 nginx:latest           600f7cd45e27        243MB         66.8MB    U   
 ```
+![docker images](./docker images.png)
 
 2 **컨테이너 목록 확인 (docker ps -a)**
 
@@ -353,6 +362,7 @@ CONTAINER ID   IMAGE         COMMAND                   CREATED          STATUS  
 feb2ffb8a849   hello-world   "/hello"                  13 minutes ago   Exited (0) 13 minutes ago                          mystifying_cohen
 1c2c2f9fd41b   nginx         "/docker-entrypoint.…"   38 hours ago     Exited (255) 22 hours ago   0.0.0.0:8080->80/tcp   web-mission-check
 ```
+![docker ps -a](./docker ps -a.png)
 
 3 **컨테이너 로그 확인 (docker logs 0fe9)**
 
@@ -381,7 +391,7 @@ Share images, automate workflows, and more with a free Docker ID:
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
-
+![권한변경 실습](./권한변경 실습.png)
 ---
 
 4 **리소스 사용량 확인 (docker stats --no-stream)**
@@ -405,6 +415,8 @@ root@a6da93a2c848:/# echo "Hello from Ubuntu"
 Hello from Ubuntu
 root@a6da93a2c848:/# exit
 ```
+![권한변경 실습](./권한변경_실습.png)
+
 ### 7.2 컨테이너 및 이미지 정리
 실습 종료 후, 사용한 자원을 정리하기 위해 컨테이너와 이미지를 삭제하였습니다.
 
@@ -415,6 +427,7 @@ $ docker rm a6da93a2c848 0fe926a12ed0
 a6da93a2c848
 0fe926a12ed0
 ```
+![권한변경 실습](./권한변경_실습.png)
 
 2) 이미지 삭제 (docker rmi)
 더 이상 사용하지 않는 이미지를 삭제하여 디스크 용량을 확보하였습니다.
@@ -425,6 +438,7 @@ Deleted: sha256:ba6304546984...
 Untagged: hello-world:latest
 Deleted: sha256:c567b231f656...
 ```
+![권한변경 실습](./권한변경_실습.png)
 
 ### 7.3 attach vs exec 차이점 정리
 attach: 실행 중인 컨테이너의 표준 입력/출력에 연결합니다. 종료 시 컨테이너가 멈출 수 있습니다.
@@ -436,11 +450,15 @@ Dockerfile 작성 및 이미지 빌드
 # Dockerfile을 이용해 my-web-server 이미지 생성
 $ docker build -t my-web-server .
 ```
+![권한변경 실습](./권한변경_실습.png)
+
 포트 포워딩을 이용한 컨테이너 실행
 ```bash
 # 8080 포트로 접속하면 컨테이너의 80 포트로 연결되도록 실행
 $ docker run -d -p 8080:80 --name web-mission my-web-server
 ```
+![권한변경 실습](./권한변경_실습.png)
+
 실행 상태 확인 (docker ps)
 ```bash
 CONTAINER ID   IMAGE           COMMAND                   CREATED          STATUS          PORTS                                     NAMES
